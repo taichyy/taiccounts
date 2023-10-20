@@ -64,10 +64,6 @@ const MainTable = () => {
 
     return (
     <div>
-        <nav className="flex justify-end">
-            <ArrowLeft />
-            <ArrowRight />
-        </nav>
         <Input onChange={(e)=>handleChange(e)}/>
         <Table>
             <TableHeader className="border-t-2 border-b-2">
