@@ -14,4 +14,3 @@ const keyAccountSchema = new Schema({
 })
 
 module.exports = mongoose.models.KeyAccount || mongoose.model('KeyAccount', keyAccountSchema);
-export default module.exports
