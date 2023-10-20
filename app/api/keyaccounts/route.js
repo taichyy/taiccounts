@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 
 import connect from "@/lib/db"
-import KeyAccount from "@/models/KeyAccount"
+import KeyAccount from "@/models/keyAccount"
 
 // Name must be route.js
 export const GET = async (request) => {
