@@ -74,7 +74,7 @@ const MainTable = () => {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {filtered?.sort((a,b) => a.title.localeCompare(b.title)).map( acc => (
+                { sessionStorage.getItem("isLogined") ? filtered?.sort((a,b) => a.title.localeCompare(b.title)).map( acc => (
                     <TableRow key={acc._id}>
                         <TableCell>{acc.title}</TableCell>
                         <TableCell>{acc.username}</TableCell>
@@ -82,7 +82,7 @@ const MainTable = () => {
                             {verified ? acc.password : <TwoFA id={acc._id} verified={verified} setVerified={setVerified}/>}
                         </TableCell>
                     </TableRow>
-                ))}
+                )) : null}
             </TableBody>
         </Table>
     </div>
