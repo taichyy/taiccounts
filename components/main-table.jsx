@@ -70,8 +70,8 @@ const MainTable = () => {
         <Table>
             <TableHeader className="border-t-2 border-b-2">
                 <TableRow>
-                    <TableHead></TableHead>
-                    <TableHead>帳號</TableHead>
+                    <TableHead className="w-fit"></TableHead>
+                    <TableHead className="w-fit">帳號</TableHead>
                     <TableHead>密碼</TableHead>
                     <TableHead></TableHead>
                 </TableRow>
@@ -79,8 +79,16 @@ const MainTable = () => {
             <TableBody>
                 { sessionStorage.getItem("isLogined") ? filtered?.sort((a,b) => a.title.localeCompare(b.title)).map( acc => (
                     <TableRow key={acc._id}>
-                        <TableCell>{acc.title}</TableCell>
-                        <TableCell>{acc.username}</TableCell>
+                        <TableCell className="w-fit">
+                            {acc.title.split('、').map( (line, index) => (
+                                <span key={index}>
+                                    {line}
+                                    { index == acc.title.split('、').length-1 ? '' : '、'}
+                                    <br/>
+                                </span>
+                            ))}
+                        </TableCell>
+                        <TableCell className="w-fit">{acc.username}</TableCell>
                         <TableCell>
                             { verified ? 
                                 acc.password : 
