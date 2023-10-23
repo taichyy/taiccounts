@@ -1,4 +1,4 @@
-import { EyeOff } from "lucide-react";
+import { Pen } from "lucide-react";
 import { useState } from "react";
 
 import {
@@ -12,7 +12,7 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
-const TwoFA = ({id, verified, setVerified}) => {
+const Edit = ({id, verified, setVerified}) => {
 
     const [msg, setMsg] = useState("")
 
@@ -28,7 +28,7 @@ const TwoFA = ({id, verified, setVerified}) => {
     return (
         <Dialog>
             <DialogTrigger>
-                <EyeOff/>
+                <Pen/>
             </DialogTrigger>
             <DialogContent className="w-fit">
                 <DialogHeader>
@@ -46,4 +46,4 @@ const TwoFA = ({id, verified, setVerified}) => {
     );
 }
  
-export default TwoFA;
+export default Edit;

@@ -62,7 +62,7 @@ export default function LoginForm() {
             <span className='h-4' />
             <div className="flex flex-col space-y-1.5 w-full">
               <Label htmlFor="password" className='text-base'>密碼</Label>
-              <Input id="password" placeholder="" />
+              <Input id="password" type="password" placeholder="" />
             </div>
           </div>
       </CardContent>

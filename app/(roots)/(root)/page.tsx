@@ -38,7 +38,7 @@ export default function Home() {
   }
 
   return (
-    <div className='w-full pt-10 px-4'>
+    <div className='w-full pt-10 px-4 md:w-3/4 md:mx-auto'>
       <nav className='flex justify-end mb-4'>
         <Button onClick={()=>handleClick()}>登出</Button>
       </nav>

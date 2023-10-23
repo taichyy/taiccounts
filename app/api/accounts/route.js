@@ -5,7 +5,6 @@ import Account from "@/models/Account"
 
 // Name must be route.js
 export const GET = async (request) => {
-
     try {
         await connect()
 
@@ -19,5 +18,4 @@ export const GET = async (request) => {
             status: 500
         })
     }
-
 }
