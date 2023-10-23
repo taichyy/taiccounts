@@ -62,25 +62,27 @@ const EditForm = ({id, mainMutate}) => {
             <DialogContent className="w-fit">
                 <DialogHeader>
                     <DialogTitle>更改資料</DialogTitle>
-                    <form onSubmit={(e)=>handleSubmit(e)}>
-                        <div>
-                            <h2>項目名稱</h2>
-                            <Input name="title" className="mt-2" defaultValue={data?.title}/>
-                        </div>
-                        <div>
-                            <h2>帳號</h2>
-                            <Input name="username" className="mt-2" defaultValue={data?.username}/>
-                        </div>
-                        <div>
-                            <h2>密碼</h2>
-                            <Input name="password" className="mt-2" defaultValue={data?.password}/>
-                        </div>
-                        <DialogClose asChild>
-                            <Button type="submit" className="mt-4 w-full">
-                                確定
-                            </Button>
-                        </DialogClose>
-                    </form>
+                    { isLoading ? "Loading......" : (
+                        <form onSubmit={(e)=>handleSubmit(e)}>
+                            <div>
+                                <h2>項目名稱</h2>
+                                <Input name="title" className="mt-2" defaultValue={data?.title}/>
+                            </div>
+                            <div>
+                                <h2>帳號</h2>
+                                <Input name="username" className="mt-2" defaultValue={data?.username}/>
+                            </div>
+                            <div>
+                                <h2>密碼</h2>
+                                <Input name="password" className="mt-2" defaultValue={data?.password}/>
+                            </div>
+                            <DialogClose asChild>
+                                <Button type="submit" className="mt-4 w-full">
+                                    確定
+                                </Button>
+                            </DialogClose>
+                        </form>
+                    )}
                 </DialogHeader>
                 <DialogDescription className="text-red-700">{msg}</DialogDescription>
             </DialogContent>
