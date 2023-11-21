@@ -17,7 +17,7 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
-const EditForm = ({id, mainMutate}) => {
+const EditForm = ({id}) => {
 
     const [msg, setMsg] = useState("")
 
@@ -39,7 +39,6 @@ const EditForm = ({id, mainMutate}) => {
               method:"PUT",
               body: JSON.stringify(obj)
             })
-            mainMutate()
             mutate()
             toast.success("更改成功！")
           }catch(err){

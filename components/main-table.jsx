@@ -22,12 +22,13 @@ const MainTable = () => {
     const [editVerified, setEditVerified] = useState(false)
     const [filtered, setFiltered] = useState([])
 
-    const fetcher = (...args) => fetch(...args).then(res => res.json()).then( res => filter(res))
+    const fetcher = (...args) => fetch(...args).then(res => res.json())
     const { data, mutate, error, isLoading } = useSWR(
         `/api/accounts`, 
         fetcher,{
-            refreshInterval : 2000,
-        }
+            refreshInterval : 0,
+        },
+        false
     )
 
     useEffect(()=>{
@@ -37,25 +38,6 @@ const MainTable = () => {
     useEffect(()=>{
         setFiltered(data)
     },[data])
-
-    const filter = (arr) => {
-        const mergedArray = [];
-        const trackingObject = {};
-
-        for (const obj of arr) {
-
-            const key = obj.username + obj.password;
-            
-            if (trackingObject[key]) {
-                trackingObject[key].title += '、' + obj.title;
-            } else {
-                trackingObject[key] = { ...obj };
-                mergedArray.push(trackingObject[key]);
-            }
-        }
-
-        return mergedArray;
-    }
 
     const handleChange = (e) => {
         if( e.target.value == '' ) {
@@ -106,7 +88,7 @@ const MainTable = () => {
                             </TableCell>
                             <TableCell>
                                 { editVerified ? 
-                                    <EditForm id={acc._id} mainMutate={mutate}/> : 
+                                    <EditForm id={acc._id} /> : 
                                     <Edit id={acc._id} verified={editVerified} setVerified={setEditVerified}/>
                                 }
                             </TableCell>

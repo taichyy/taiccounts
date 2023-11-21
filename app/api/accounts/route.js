@@ -3,7 +3,6 @@ import { NextResponse } from "next/server"
 import connect from "@/lib/db"
 import Account from "@/models/Account"
 
-// Name must be route.js
 export const GET = async (request) => {
     try {
         await connect()
