@@ -1,14 +1,12 @@
 "use client"
-
-import useSWR from 'swr'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation'
  
 import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -24,21 +22,27 @@ export default function LoginForm() {
   useEffect(()=>{
     setIsMounted(true)
   },[])
-  
-  const fetcher = (...args) => fetch(...args).then(res => res.json())
-  const { data, mutate, error, isLoading } = useSWR(
-    `/api/keyaccounts`, 
-    fetcher
-  )
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if( e.target['username'].value == data[0].username && e.target['password'].value == data[0].password) {
-      sessionStorage.setItem("isLogined", true)
+
+    // Login
+    const username = e.target['username'].value
+    const password = e.target['password'].value
+
+    const data = {
+      username, password
     }
-    if(sessionStorage.getItem("isLogined")){
+
+    const req = await fetch('api/login', {
+      body : JSON.stringify(data),
+      method : "POST"
+    })
+    const {state} = await req.json()
+    if(state == true){
+      typeof window !== 'undefined' && sessionStorage.setItem('isLogined', true)
       router.push('/')
-    }else{
+    } else if(state == false) {
       router.push('/login')
     }
   }
@@ -66,7 +70,8 @@ export default function LoginForm() {
             </div>
           </div>
       </CardContent>
-      <CardFooter className="flex flex-col items-end">
+      <CardFooter clas
+      sName="flex flex-col items-end">
         <Button className='text-lg' type="submit">登入</Button>
       </CardFooter>
       </form>

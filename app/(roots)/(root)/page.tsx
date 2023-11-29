@@ -19,17 +19,18 @@ export default function Home() {
 
   const router = useRouter()
 
+  if(typeof window !== 'undefined' && !sessionStorage.getItem('isLogined') ) {
+    router.push('/login')
+  }
+
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(()=>{
     setIsMounted(true)
-    if(!sessionStorage.getItem("isLogined")){
-      router.push('/login')
-    }
   },[])
 
   const handleClick = () => {
-    sessionStorage.removeItem("isLogined")
+    typeof window !== 'undefined' && sessionStorage.removeItem("isLogined")
     router.push('/login')
   }
   
@@ -38,7 +39,7 @@ export default function Home() {
   }
 
   return (
-    <div className='w-full pt-10 px-4 md:w-3/4 md:mx-auto'>
+    <div className='w-full pt-10 px-4 md:w-3/4 md:mx-auto' style={isMounted ? {opacity: 1} : {opacity:0}}>
       <nav className='flex justify-end mb-4'>
         <Button onClick={()=>handleClick()}>登出</Button>
       </nav>

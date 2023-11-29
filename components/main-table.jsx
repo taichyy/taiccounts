@@ -16,6 +16,8 @@ import Edit from "@/components/edit"
 import EditForm from "@/components/edit-form"
 import { Input } from "./ui/input"
 
+export const dynamic = 'force-dynamic'
+
 const MainTable = () => {
 
     const [verified, setVerified] = useState('false')
@@ -55,7 +57,7 @@ const MainTable = () => {
 
     return (
     <div>
-        {sessionStorage.getItem("isLogined") ? (
+        {typeof window !== 'undefined' && sessionStorage.getItem("isLogined") ? (
             <>
             <Input onChange={(e)=>handleChange(e)}/>
             <Table>
@@ -73,8 +75,8 @@ const MainTable = () => {
                             <TableCell className="w-fit">
                                 {acc.title.split('、').map( (line, index) => (
                                     <span key={index}>
-                                        {line}
-                                        { index == acc.title.split('、').length-1 ? '' : '、'}
+                                        {line }
+                                        {index == acc.title.split('、').length-1 ? '' : '、'}
                                         <br/>
                                     </span>
                                 ))}
@@ -83,13 +85,13 @@ const MainTable = () => {
                             <TableCell>
                                 { verified ? 
                                     acc.password : 
-                                    <TwoFA id={acc._id} verified={verified} setVerified={setVerified}/>
+                                    <TwoFA id={acc._id} verified={verified} setVerified={setVerified} />
                                 }
                             </TableCell>
                             <TableCell>
                                 { editVerified ? 
-                                    <EditForm id={acc._id} /> : 
-                                    <Edit id={acc._id} verified={editVerified} setVerified={setEditVerified}/>
+                                    <EditForm id={acc._id} mainMutate={mutate} /> : 
+                                    <Edit id={acc._id} verified={editVerified} setVerified={setEditVerified} />
                                 }
                             </TableCell>
                         </TableRow>
