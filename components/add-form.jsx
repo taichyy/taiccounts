@@ -49,7 +49,7 @@ const AddForm = () => {
     return (
         <Dialog>
             <Toaster />
-            <DialogTrigger>
+            <DialogTrigger asChild>
                 <Button>新增</Button>
             </DialogTrigger>
             <DialogContent className="w-fit">
