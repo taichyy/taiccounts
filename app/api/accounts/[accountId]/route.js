@@ -33,13 +33,13 @@ export const GET = async (request ,{params}) => {
 
 export const DELETE = async (request ,{params}) => {
 
-    const {id} = params
+    const {accountId} = params
 
     // Fetch
     try{
         // From utils/db.js
         await connect()
-        await Account.findByIdAndDelete(id)
+        await Account.findByIdAndDelete(accountId)
 
         return new NextResponse("Account has been deleted", {
             status: 200

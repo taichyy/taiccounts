@@ -21,6 +21,12 @@ const EditForm = ({id, mainMutate}) => {
 
     const [msg, setMsg] = useState("")
 
+    const fetcher = (...args) => fetch(...args).then(res => res.json())
+    const { data, mutate, error, isLoading } = useSWR(
+        `/api/accounts/${id}`, 
+        fetcher
+    )
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         
@@ -36,23 +42,30 @@ const EditForm = ({id, mainMutate}) => {
 
         try{
             await fetch(`/api/accounts/${id}`,{
-              method:"PUT",
-              body: JSON.stringify(obj)
+                method:"PUT",
+                body: JSON.stringify(obj)
             })
             mutate()
             mainMutate()
             toast.success("更改成功！")
-          }catch(err){
+        } catch (err) {
             console.log(err)
         }
     } 
-    
-    const fetcher = (...args) => fetch(...args).then(res => res.json())
-    const { data, mutate, error, isLoading } = useSWR(
-      `/api/accounts/${id}`, 
-      fetcher
-    )
 
+    const handleDelete = async() => {
+        try{
+            await fetch(`/api/accounts/${id}`,{
+                method:"DELETE",
+            })
+            mutate()
+            mainMutate()
+            toast.success("刪除成功！")
+        } catch (err) {
+            console.log(err)
+        }
+    }
+        
     return (
         <Dialog>
             <Toaster />
@@ -78,7 +91,12 @@ const EditForm = ({id, mainMutate}) => {
                             </div>
                             <DialogClose asChild>
                                 <Button type="submit" className="mt-4 w-full">
-                                    確定
+                                    確定編輯
+                                </Button>
+                            </DialogClose>
+                            <DialogClose asChild>
+                                <Button variant="destructive" className="mt-4 w-full" onClick={()=>handleDelete()}>
+                                    刪除
                                 </Button>
                             </DialogClose>
                         </form>
