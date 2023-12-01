@@ -31,6 +31,26 @@ export const GET = async (request ,{params}) => {
     }
 }
 
+export const DELETE = async (request ,{params}) => {
+
+    const {id} = params
+
+    // Fetch
+    try{
+        // From utils/db.js
+        await connect()
+        await Account.findByIdAndDelete(id)
+
+        return new NextResponse("Account has been deleted", {
+            status: 200
+        })
+    }catch (err){
+        return new NextResponse("Database Error", {
+            status: 500,
+        })
+    }
+}
+
 export const PUT = async (request ,{params}) => {
 
     const {accountId} = params
