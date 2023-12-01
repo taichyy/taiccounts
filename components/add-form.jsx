@@ -1,7 +1,6 @@
 "use client"
-import { PenBoxIcon } from "lucide-react";
-import { useEffect, useState } from "react";
-import useSWR from "swr";
+import { useState } from "react";
+import { useSWRConfig } from "swr"
 import { toast } from "react-hot-toast"
 import { Toaster } from "react-hot-toast";
 
@@ -21,25 +20,28 @@ const AddForm = () => {
 
     const [msg, setMsg] = useState("")
 
+    const { mutate } = useSWRConfig()
+    
     const handleSubmit = async (e) => {
         e.preventDefault()
         
         const title = e.target.title.value
         const username = e.target.username.value
         const password = e.target.password.value
-
+        
         const obj = {
             title : title,
             username : username,
             password : password
         }
-
+        
         try{
             await fetch(`/api/accounts/`,{
-              method:"POST",
-              body: JSON.stringify(obj)
+                method:"POST",
+                body: JSON.stringify(obj)
             })
             toast.success("新增成功！")
+            mutate("/api/accounts");
           }catch(err){
             console.log(err)
             toast.error("新增失敗！")

@@ -54,15 +54,17 @@ const EditForm = ({id, mainMutate}) => {
     } 
 
     const handleDelete = async() => {
-        try{
-            await fetch(`/api/accounts/${id}`,{
-                method:"DELETE",
-            })
-            mutate()
-            mainMutate()
-            toast.success("刪除成功！")
-        } catch (err) {
-            console.log(err)
+        if(confirm("確定要刪除嗎？")){
+            try{
+                await fetch(`/api/accounts/${id}`,{
+                    method:"DELETE",
+                })
+                mutate()
+                mainMutate()
+                toast.success("刪除成功！")
+            } catch (err) {
+                console.log(err)
+            }
         }
     }
         
