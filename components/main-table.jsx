@@ -39,6 +39,13 @@ const MainTable = () => {
     useEffect(()=>{
         setFiltered(data)
     },[data])
+    
+    useEffect(()=>{
+        if(verified == true || editVerified == true) {
+            setVerified(true)
+            setEditVerified(true)
+        }
+    },[verified, editVerified])
 
     const handleChange = (e) => {
         if( e.target.value == '' ) {
@@ -64,7 +71,7 @@ const MainTable = () => {
                     <TableRow>
                         <TableHead className="w-fit"></TableHead>
                         <TableHead className="w-fit">帳號</TableHead>
-                        <TableHead>密碼</TableHead>
+                        <TableHead className=" whitespace-nowrap">密碼</TableHead>
                         <TableHead></TableHead>
                     </TableRow>
                 </TableHeader>

@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { useSWRConfig } from "swr"
 import { toast } from "react-hot-toast"
-import { Toaster } from "react-hot-toast";
 
 import {
     Dialog,
@@ -50,17 +49,16 @@ const AddForm = () => {
     
     return (
         <Dialog>
-            <Toaster />
             <DialogTrigger asChild>
                 <Button>新增</Button>
             </DialogTrigger>
-            <DialogContent className="w-fit">
+            <DialogContent className="w-[90%]">
                 <DialogHeader>
                     <DialogTitle>新增資料</DialogTitle>
-                        <form onSubmit={(e)=>handleSubmit(e)}>
+                        <form onSubmit={(e)=>handleSubmit(e)} className=" text-left">
                             <div>
                                 <h2>項目名稱</h2>
-                                <Input name="title" className="mt-2" />
+                                <Input name="title" className="mt-2 w-[600px]" />
                             </div>
                             <div>
                                 <h2>帳號</h2>

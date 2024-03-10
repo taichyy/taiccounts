@@ -3,7 +3,6 @@ import { PenBoxIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { toast } from "react-hot-toast"
-import { Toaster } from "react-hot-toast";
 
 import {
     Dialog,
@@ -70,7 +69,6 @@ const EditForm = ({id, mainMutate}) => {
         
     return (
         <Dialog>
-            <Toaster />
             <DialogTrigger>
                 <PenBoxIcon />
             </DialogTrigger>
@@ -78,10 +76,10 @@ const EditForm = ({id, mainMutate}) => {
                 <DialogHeader>
                     <DialogTitle>更改資料</DialogTitle>
                     { isLoading ? "Loading......" : (
-                        <form onSubmit={(e)=>handleSubmit(e)}>
+                        <form onSubmit={(e)=>handleSubmit(e)} className=" text-left">
                             <div>
                                 <h2>項目名稱</h2>
-                                <Input name="title" className="mt-2" defaultValue={data?.title}/>
+                                <Input name="title" className="mt-2 w-[600px]" defaultValue={data?.title}/>
                             </div>
                             <div>
                                 <h2>帳號</h2>
