@@ -21,7 +21,6 @@ const MainTable = () => {
 
     const [search, setSearch] = useState("")
     const [verified, setVerified] = useState(false)
-    const [editVerified, setEditVerified] = useState(false)
     const [filtered, setFiltered] = useState([])
 
     const fetcher = (...args) => fetch(...args).then(res => res.json())
@@ -49,14 +48,6 @@ const MainTable = () => {
         }
     }, [data, search]);
     
-    useEffect(()=>{
-        if(verified == true || editVerified == true) {
-            setVerified(true)
-            setEditVerified(true)
-        }
-    },[verified, editVerified])
-
-
     return (
     <div>
         {typeof window !== 'undefined' && sessionStorage.getItem("isLogined") ? (
@@ -91,9 +82,9 @@ const MainTable = () => {
                                 }
                             </TableCell>
                             <TableCell>
-                                { editVerified ? 
+                                { verified ? 
                                     <EditForm id={acc._id} mainMutate={mutate} /> : 
-                                    <Edit id={acc._id} verified={editVerified} setVerified={setEditVerified} />
+                                    <Edit id={acc._id} verified={verified} setVerified={setVerified} />
                                 }
                             </TableCell>
                         </TableRow>
