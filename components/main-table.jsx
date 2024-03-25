@@ -19,7 +19,8 @@ export const dynamic = 'force-dynamic'
 
 const MainTable = () => {
 
-    const [verified, setVerified] = useState('false')
+    const [search, setSearch] = useState("")
+    const [verified, setVerified] = useState(false)
     const [editVerified, setEditVerified] = useState(false)
     const [filtered, setFiltered] = useState([])
 
@@ -27,18 +28,26 @@ const MainTable = () => {
     const { data, mutate, error, isLoading } = useSWR(
         `/api/accounts`, 
         fetcher,{
-            refreshInterval : 0,
+            refreshInterval : 30000,
         },
         false
     )
 
-    useEffect(()=>{
-        setVerified(false)
-    },[])
-
-    useEffect(()=>{
-        setFiltered(data)
-    },[data])
+    useEffect(() => {
+        if (data) {
+            if (search === '') {
+                setFiltered(data);
+            } else {
+                setFiltered(
+                    data.filter(
+                        record =>
+                            record.title.toLowerCase().includes(search.toLowerCase()) ||
+                            record.username.toLowerCase().includes(search.toLowerCase())
+                    )
+                );
+            }
+        }
+    }, [data, search]);
     
     useEffect(()=>{
         if(verified == true || editVerified == true) {
@@ -47,25 +56,12 @@ const MainTable = () => {
         }
     },[verified, editVerified])
 
-    const handleChange = (e) => {
-        if( e.target.value == '' ) {
-            setFiltered(data)
-        } else {
-            setFiltered(
-                data.filter( 
-                    record => 
-                        record.title.toLowerCase().includes(e.target.value.toLowerCase()) || 
-                        record.username.toLowerCase().includes(e.target.value.toLowerCase())
-                    ))
-        }
-    }
-
 
     return (
     <div>
         {typeof window !== 'undefined' && sessionStorage.getItem("isLogined") ? (
             <>
-            <Input onChange={(e)=>handleChange(e)}/>
+            <Input defaultValue={search} onChange={(e)=>(setSearch(e.target.value))}/>
             <Table>
                 <TableHeader className="border-t-2 border-b-2">
                     <TableRow>
