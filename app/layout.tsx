@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Toaster } from "react-hot-toast";
+import Head from 'next/head';
 
 import './globals.css'
-import { Head } from 'next/document';
 
 const inter = Inter({ subsets: ['latin'] })
 
